@@ -27,24 +27,24 @@
         <p id="exclamacionAviso">Solo letras minusculas y sin acentos</p>
       </div>
       <div class="div_botones">
-        <button id="btnEncriptar">Encriptar</button>
-        <button id="btnDesencriptar">Desencriptar</button>
+        <button id="btnEncriptar" onclick="encriptar()">Encriptar</button>
+        <button id="btnDesencriptar" onclick="desencriptar()">Desencriptar</button>
       </div>
     </section>
     <aside>
-      <!-- <div>
+      <div>
         <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, aliquid! Dolorum debitis quasi
           pariatur omnis dolore dignissimos reprehenderit, nobis aut quisquam hic. Laborum cum corporis veritatis
           itaque, similique enim et!</span>
-      </div> -->
-      <div class="div_img_aside">
+      </div>
+      <div class="div_img_aside" id="img_aside">
         <img src="./img/img-personaBuscando.png" alt="persona buscando con una lupa" id="img-personaBuscando">
       </div>
-      <div class="div_leyendas">
+      <div class="div_leyendas" id="leyendas">
         <p id="leyendaSinMsj">Nigun mensaje fue encontrado</p>
         <p id="leyendaIngreseMsj">Ingrese el texto que desea encriptar o desencriptar.</p>
       </div>
-      <!-- <button id="btnCopiar">Copiar</button> -->
+      <button id="btnCopiar">Copiar</button>
     </aside>
   </main>
   <footer>
@@ -54,5 +54,5 @@
     <a href=""><i class="fa-brands fa-linkedin"></i>Linkedin</a>
   </footer>
 </body>
-
+<script src="app.js"></script>
 </html>
