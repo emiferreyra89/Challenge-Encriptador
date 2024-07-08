@@ -3,7 +3,7 @@ const areaMostrarMensaje = document.querySelector("span");
 const imgAside = document.getElementById("img_aside");
 const divLeyendas = document.getElementById("leyendas");
 const botonCopiar = document.getElementById("btnCopiar");
-let msj = '';
+let msj = "";
 
 function encriptar() {
   msj = textoUsuario.value;
@@ -40,27 +40,40 @@ function encriptar() {
 
 function desencriptar() {
   msj = textoUsuario.value;
-  let msjDesencriptado = "";
-  const claves = {
-    'ai':'a',
-    'enter':'e',
-    'imes':'i',
-    'ober':'o',
-    'ufat':'u'
-  }
-  for (let clave in claves) {
-    while (msj.includes(clave)) {
-      msjDesencriptado = msj.replace(clave,claves[clave])
+  let msjDesencriptado = msj;
+  const claves = ["ai", "enter", "imes", "ober", "ufat"];
+  let contieneClaves = true;
+  while (contieneClaves) {
+    for (let x = 0; x < claves.length; x++) {
+      let condicionOk = msj.includes(claves[x]);
+      if (condicionOk == true) {
+        switch (x) {
+          case 0:
+            msjDesencriptado = msjDesencriptado.replace(claves[x], "a");
+            break;
+          case 1:
+            msjDesencriptado = msjDesencriptado.replace(claves[x], "e");
+            break;
+          case 2:
+            msjDesencriptado = msjDesencriptado.replace(claves[x], "i");
+            break;
+          case 3:
+            msjDesencriptado = msjDesencriptado.replace(claves[x], "o");
+            break;
+          case 4:
+            msjDesencriptado = msjDesencriptado.replace(claves[x], "u");
+            break;
+          default:
+            break;
+        }
+      }
     }
-    //return msjDesencriptado
-    console.log(msjDesencriptado);
+    contieneClaves = claves.some(clave => msjDesencriptado.includes(clave));
   }
-  //console.log(msjDesencriptado);
-  //alert(msjDesencriptado)
-  // areaMostrarMensaje.style.display = "block";
-  // areaMostrarMensaje.innerHTML = msjDesencriptado;
-  // botonCopiar.style.display = "block";
-  // imgAside.style.display = "none";
-  // divLeyendas.style.display = "none";
-  // return;
+  areaMostrarMensaje.style.display = "block";
+  areaMostrarMensaje.innerHTML = msjDesencriptado;
+  botonCopiar.style.display = "block";
+  imgAside.style.display = "none";
+  divLeyendas.style.display = "none";
+  return;
 }
