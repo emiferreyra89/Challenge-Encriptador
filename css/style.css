@@ -45,20 +45,9 @@
     flex-direction: column;
     gap: 24px;
   }
-  #btnEncriptar {
-    background-color: #0a3871;
-    color: #ffffff;
-    border: none;
-  }
-  #btnDesencriptar,
-  #btnCopiar {
-    color: #0a3871;
-    border: 1px solid #0a3871;
-  }
   #btnCopiar {
     display: none;
   }
-
   /* Estilos Aside */
   #img-personaBuscando {
     display: none;
