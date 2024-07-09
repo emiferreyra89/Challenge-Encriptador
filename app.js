@@ -1,79 +1,105 @@
+//Tags 
 const textoUsuario = document.getElementById("areaTextoUsuario");
 const areaMostrarMensaje = document.querySelector("span");
 const imgAside = document.getElementById("img_aside");
 const divLeyendas = document.getElementById("leyendas");
-const botonCopiar = document.getElementById("btnCopiar");
-let msj = "";
 
+//Tags botones
+const btnEncriptar = document.getElementById('btnEncriptar');
+const btnDesencriptar = document.getElementById('btnDesencriptar')
+const btnCopiar = document.getElementById("btnCopiar");
+
+//Declaracion de variables
+let msjUsuario = "";
+let msjProcesado = "";
+
+//Declaracion de funciones
 function encriptar() {
-  msj = textoUsuario.value;
-  let msjDesncriptado = "";
-  for (let x = 0; x < msj.length; x++) {
-    switch (msj[x]) {
+  msjUsuario = textoUsuario.value;
+  msjProcesado = "";
+  for (let x = 0; x < msjUsuario.length; x++) {
+    switch (msjUsuario[x]) {
       case "a":
-        msjDesncriptado += "ai";
+        msjProcesado += "ai";
         break;
       case "e":
-        msjDesncriptado += "enter";
+        msjProcesado += "enter";
         break;
       case "i":
-        msjDesncriptado += "imes";
+        msjProcesado += "imes";
         break;
       case "o":
-        msjDesncriptado += "ober";
+        msjProcesado += "ober";
         break;
       case "u":
-        msjDesncriptado += "ufat";
+        msjProcesado += "ufat";
         break;
       default:
-        msjDesncriptado += msj[x];
+        msjProcesado += msjUsuario[x];
         break;
     }
   }
-  areaMostrarMensaje.style.display = "block";
-  areaMostrarMensaje.innerHTML = msjDesncriptado;
-  botonCopiar.style.display = "block";
-  imgAside.style.display = "none";
-  divLeyendas.style.display = "none";
-  return;
+  mostrarMensaje(msjProcesado)
+  btnDesencriptar.setAttribute("disabled", "true")
+  return msjProcesado;
 }
 
 function desencriptar() {
-  msj = textoUsuario.value;
-  let msjDesencriptado = msj;
+  msjUsuario = textoUsuario.value;
+  msjProcesado = msjUsuario;
   const claves = ["ai", "enter", "imes", "ober", "ufat"];
   let contieneClaves = true;
   while (contieneClaves) {
     for (let x = 0; x < claves.length; x++) {
-      let condicionOk = msj.includes(claves[x]);
+      let condicionOk = msjUsuario.includes(claves[x]);
       if (condicionOk == true) {
-        switch (x) {
-          case 0:
-            msjDesencriptado = msjDesencriptado.replace(claves[x], "a");
+        switch (claves[x]) {
+          case claves[0]:
+            msjProcesado = msjProcesado.replace(claves[x], "a");
             break;
-          case 1:
-            msjDesencriptado = msjDesencriptado.replace(claves[x], "e");
+          case claves[1]:
+            msjProcesado = msjProcesado.replace(claves[x], "e");
             break;
-          case 2:
-            msjDesencriptado = msjDesencriptado.replace(claves[x], "i");
+          case claves[2]:
+            msjProcesado = msjProcesado.replace(claves[x], "i");
             break;
-          case 3:
-            msjDesencriptado = msjDesencriptado.replace(claves[x], "o");
+          case claves[3]:
+            msjProcesado = msjProcesado.replace(claves[x], "o");
             break;
-          case 4:
-            msjDesencriptado = msjDesencriptado.replace(claves[x], "u");
+          case claves[4]:
+            msjProcesado = msjProcesado.replace(claves[x], "u");
             break;
           default:
             break;
         }
       }
     }
-    contieneClaves = claves.some(clave => msjDesencriptado.includes(clave));
+    contieneClaves = claves.some(clave => msjProcesado.includes(clave));
   }
+  mostrarMensaje(msjProcesado)
+  btnEncriptar.setAttribute("disabled", "true")
+  return msjProcesado;
+}
+
+function mostrarMensaje(mensaje) {
   areaMostrarMensaje.style.display = "block";
-  areaMostrarMensaje.innerHTML = msjDesencriptado;
-  botonCopiar.style.display = "block";
+  areaMostrarMensaje.innerHTML = mensaje;
+  btnCopiar.style.display = "block";
   imgAside.style.display = "none";
   divLeyendas.style.display = "none";
-  return;
 }
+
+async function copiarTexto() {
+  try {
+    await navigator.clipboard.writeText(msjProcesado);
+    alert('Texto copiado')
+  } catch (error) {
+    alert(`Error al copiar el texto (${error})`)
+  }
+}
+
+//Evento - Habilitar los botones cuando el textarea recibe el foco
+textoUsuario.addEventListener('focus', () => {
+  btnEncriptar.removeAttribute("disabled");
+  btnDesencriptar.removeAttribute("disabled");
+});
