@@ -1,12 +1,13 @@
-//Tags 
+//Tags
 const textoUsuario = document.getElementById("areaTextoUsuario");
+const aside = document.querySelector("aside");
 const areaMostrarMensaje = document.querySelector("span");
 const imgAside = document.getElementById("img_aside");
 const divLeyendas = document.getElementById("leyendas");
 
 //Tags botones
-const btnEncriptar = document.getElementById('btnEncriptar');
-const btnDesencriptar = document.getElementById('btnDesencriptar')
+const btnEncriptar = document.getElementById("btnEncriptar");
+const btnDesencriptar = document.getElementById("btnDesencriptar");
 const btnCopiar = document.getElementById("btnCopiar");
 
 //Declaracion de variables
@@ -39,8 +40,8 @@ function encriptar() {
         break;
     }
   }
-  mostrarMensaje(msjProcesado)
-  btnDesencriptar.setAttribute("disabled", "true")
+  mostrarMensaje(msjProcesado);
+  btnDesencriptar.setAttribute("disabled", "true");
   return msjProcesado;
 }
 
@@ -74,14 +75,15 @@ function desencriptar() {
         }
       }
     }
-    contieneClaves = claves.some(clave => msjProcesado.includes(clave));
+    contieneClaves = claves.some((clave) => msjProcesado.includes(clave));
   }
-  mostrarMensaje(msjProcesado)
-  btnEncriptar.setAttribute("disabled", "true")
+  mostrarMensaje(msjProcesado);
+  btnEncriptar.setAttribute("disabled", "true");
   return msjProcesado;
 }
 
 function mostrarMensaje(mensaje) {
+  aside.style.justifyContent = "space-between";
   areaMostrarMensaje.style.display = "block";
   areaMostrarMensaje.innerHTML = mensaje;
   btnCopiar.style.display = "block";
@@ -92,14 +94,14 @@ function mostrarMensaje(mensaje) {
 async function copiarTexto() {
   try {
     await navigator.clipboard.writeText(msjProcesado);
-    alert('Texto copiado')
+    alert("Texto copiado");
   } catch (error) {
-    alert(`Error al copiar el texto (${error})`)
+    alert(`Error al copiar el texto (${error})`);
   }
 }
 
 //Evento - Habilitar los botones cuando el textarea recibe el foco
-textoUsuario.addEventListener('focus', () => {
+textoUsuario.addEventListener("focus", () => {
   btnEncriptar.removeAttribute("disabled");
   btnDesencriptar.removeAttribute("disabled");
 });
