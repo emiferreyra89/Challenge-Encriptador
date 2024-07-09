@@ -55,6 +55,9 @@
     color: #0a3871;
     border: 1px solid #0a3871;
   }
+  #btnCopiar {
+    display: none;
+  }
 
   /* Estilos Aside */
   #img-personaBuscando {
