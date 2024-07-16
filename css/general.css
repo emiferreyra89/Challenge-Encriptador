@@ -22,7 +22,7 @@ a {
   color: #000;
 }
 a:hover {
-  color: #0a3871;
+  color: white;
   text-decoration: dotted;
 }
 textarea {  
@@ -90,6 +90,8 @@ footer {
   gap: 20px;
   padding: 20px;
   margin-top: 10%;
+  background-color: rgba(10, 56, 113, 0.9);
+  color: white;
 }
 footer i {
   margin-right: 10px;
