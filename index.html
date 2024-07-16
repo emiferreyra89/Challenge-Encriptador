@@ -1,0 +1,57 @@
+  <!DOCTYPE html>
+  <html lang="es">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encriptador</title>
+    <script src="https://kit.fontawesome.com/02b2ba4a5f.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/general.css">
+  </head>
+
+  <body>
+    <main>
+      <section class="section_primera">
+        <div><img src="./img/img-a-update.png" alt="imagen de Alura" id="img-a"></div>
+        <div><img src="./img/img-iconoLista.png" alt="icono tipo hamburguesa" id="iconoLista"></div>
+      </section>
+      <section class="section_segunda">
+        <p id="tituloIngreseTexto">Ingrese el texto aqui...</p>
+        <textarea name="" id="areaTextoUsuario" maxlength="2000"></textarea>
+        <div class="msjValidacion">
+          <i class="fa-solid fa-circle-exclamation" id="iconoExclamacion"></i>
+          <p id="exclamacionAviso">Solo letras minusculas y sin acentos</p>
+        </div>
+        <div class="div_botones">
+          <button id="btnEncriptar" onclick="encriptar()">Encriptar</button>
+          <button id="btnDesencriptar" onclick="desencriptar()"remo>Desencriptar</button>
+        </div>
+      </section>
+      <aside>
+        <div id="texto_aside">
+          <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, aliquid! Dolorum debitis quasi
+            pariatur omnis dolore dignissimos reprehenderit, nobis aut quisquam hic. Laborum cum corporis veritatis
+            itaque, similique enim et!</span>
+        </div>
+        <div class="div_img_aside" id="img_aside">
+          <img src="./img/img-personaBuscando.png" alt="persona buscando con una lupa" id="img-personaBuscando">
+        </div>
+        <div class="div_leyendas" id="leyendas">
+          <p id="leyendaSinMsj">Nigun mensaje fue encontrado</p>
+          <p id="leyendaIngreseMsj">Ingrese el texto que desea encriptar o desencriptar.</p>
+        </div>
+        <button id="btnCopiar" onclick="copiarTexto()">Copiar</button>
+      </aside>
+    </main>
+    <footer>
+      <h5>Desarrollador</h5>
+      <h4>Emiliano Gabriel Ferreyra</h4>
+      <a href="https://github.com/emiferreyra89/Challenge-Encriptador/tree/master"><i class="fa-brands fa-github"></i>GitHub</a>
+      <a href="https://www.linkedin.com/in/eg-ferreyra89/"><i class="fa-brands fa-linkedin"></i>Linkedin</a>
+    </footer>
+  </body>
+  <script src="app.js" defer></script>
+  </html>

@@ -1,0 +1,109 @@
+@media (min-width: 375px) {
+  /* Estilos Primera seccion */
+  .section_primera {
+    display: flex;
+    justify-content: space-between;
+  }
+  .section_primera div {
+    width: 50px;
+    height: 50px;
+  }
+  #img-a {
+    width: auto;
+    height: auto;
+  }
+  #iconoLista {
+    width: auto;
+    height: auto;
+  }
+  /* Estilos Segunda seccion  */
+  .section_segunda {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  #tituloIngreseTexto {
+    font-size: 32px;
+    color: #0a3871;
+  }
+  .msjValidacion {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  #iconoExclamacion {
+    font-size: 16px;
+    color: #67808e;
+  }
+  #exclamacionAviso {
+    font-size: 12px;
+    font-weight: 400;
+    color: #495057;
+  }
+  .div_botones {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  #btnCopiar {
+    display: none;
+  }
+  /* Estilos Aside */
+  #texto_aside {
+    order: 1;
+  }
+  #img-personaBuscando {
+    display: none;
+  }
+  .div_leyendas {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  #leyendaSinMsj {
+    font-size: 24px;
+    font-weight: bold;
+    color: #343a40;
+    display: none;
+  }
+  #leyendaIngreseMsj {
+    font-size: 16px;
+    font-weight: normal;
+    color: #495057;
+  }
+}
+
+@media (min-width: 768px) {
+  .div_botones {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 1440px) {
+  .section_primera {
+    flex-direction: column;
+    justify-content: normal;
+    gap: 20px;
+  }
+  .section_segunda {
+    width: 60%;
+    justify-content: end;
+  }
+  aside {
+    width: 40%;
+    justify-content: center;
+  }
+  #img-personaBuscando {
+    display: inline-block;
+  }
+  .div_img_aside {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .div_leyendas {
+    padding: 25px;
+  }
+}
