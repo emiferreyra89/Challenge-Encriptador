@@ -49,6 +49,9 @@
     display: none;
   }
   /* Estilos Aside */
+  #texto_aside {
+    order: 1;
+  }
   #img-personaBuscando {
     display: none;
   }

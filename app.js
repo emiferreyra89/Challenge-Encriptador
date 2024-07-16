@@ -1,6 +1,7 @@
 //Tags
 const textoUsuario = document.getElementById("areaTextoUsuario");
 const aside = document.querySelector("aside");
+const textoAside = document.getElementById("texto_aside")
 const areaMostrarMensaje = document.querySelector("span");
 const imgAside = document.getElementById("img_aside");
 const divLeyendas = document.getElementById("leyendas");
@@ -44,6 +45,7 @@ function encriptar() {
           break;
       }
     }
+    textoAside.style.order = "initial"
     limpiarAvisoError()
     mostrarMensaje(msjProcesado);
     btnDesencriptar.setAttribute("disabled", "true");
@@ -100,7 +102,7 @@ function desencriptar() {
     errorTextoUsuario()
     leyendaSinMsj.style.display = "none"
   }
-  return
+  return msjProcesado
 }
 
 function mostrarMensaje(mensaje) {
@@ -129,6 +131,7 @@ function mensajeVacio() {
   imgAside.style.margin = "0px auto";
   divLeyendas.style.display = "block";
   leyendaSinMsj.style.display = "block"
+  textoAside.style.order = "1"
 }
 
 function validarTextoUsuario(texto) {
