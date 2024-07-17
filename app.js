@@ -92,6 +92,8 @@ function desencriptar() {
       }
       contieneClaves = claves.some((clave) => msjProcesado.includes(clave));
     }
+    textoAside.style.order = "initial"
+    limpiarAvisoError()
     mostrarMensaje(msjProcesado);
     btnEncriptar.setAttribute("disabled", "true");
     return msjProcesado;
