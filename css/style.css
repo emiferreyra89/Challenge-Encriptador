@@ -1,12 +1,10 @@
-@media (min-width: 375px) {
+@media (min-width: 320px) {
   /* Estilos Primera seccion */
   .section_primera {
     display: flex;
     justify-content: space-between;
-  }
-  .section_primera div {
-    width: 50px;
-    height: 50px;
+    align-items: center;
+    flex-wrap: wrap;
   }
   #img-a {
     width: auto;
@@ -15,6 +13,30 @@
   #iconoLista {
     width: auto;
     height: auto;
+  }
+  #list_icon_burger {
+    margin: 10px auto;
+    padding: 5px 0px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5%;
+    display: none;
+  }
+  .boton_close {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 50%;
+    padding: 5px;
+  }
+  .botonera_burger {
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    border-radius: 30px;
+    padding: 10px;
+    gap: 20px;
   }
   /* Estilos Segunda seccion  */
   .section_segunda {
@@ -48,9 +70,25 @@
   #btnCopiar {
     display: none;
   }
+  #alertCopied {
+    display: none;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: rgb(45, 125, 224);
+    color: white;
+    font-size: 16px;
+    letter-spacing: 4px;
+    font-style: italic;
+    position: absolute;
+    margin-top: 10px;
+  }
+  .show {
+    animation: msjCopied 2s forwards;
+  }
   /* Estilos Aside */
   #texto_aside {
     order: 1;
+    width: 100%;
   }
   #img-personaBuscando {
     display: none;
@@ -79,13 +117,30 @@
     display: flex;
     flex-direction: row;
   }
+  #list_icon_burger {
+    display: none;
+    margin: 10px 0;
+    padding: 5px 0px;
+    width: 40%;
+    gap: 0;
+    justify-content: space-between;
+  }
 }
 
 @media (min-width: 1440px) {
   .section_primera {
     flex-direction: column;
     justify-content: normal;
-    gap: 20px;
+    align-items: center;
+    gap: 5%;
+  }
+  #list_icon_burger {
+    display: none;
+    height: 40%;
+    flex-direction: column;
+  }
+  .botonera_burger {
+    flex-direction: column;
   }
   .section_segunda {
     width: 60%;
@@ -105,5 +160,29 @@
   }
   .div_leyendas {
     padding: 25px;
+  }
+}
+
+@keyframes msjCopied {
+  0% {
+    opacity: 0%;
+  }
+  20% {
+    opacity: 80%;
+  }
+  40% {
+    opacity: 100%;
+  }
+  50% {
+    opacity: 100%;
+  }
+  60% {
+    opacity: 100%;
+  }
+  80% {
+    opacity: 80%;
+  }
+  100% {
+    opacity: 0%;
   }
 }
