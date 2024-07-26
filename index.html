@@ -15,26 +15,28 @@
 <body>
   <main>
     <section class="section_primera">
-      <div><img src="./img/img-a-update.png" alt="imagen de Alura" id="img-a"></div>
+      <div><a href=""><img src="./img/img-a-update.png" alt="imagen de Alura" id="img-a"></a></div>
       <div><img src="./img/img-iconoLista.png" alt="icono tipo hamburguesa" id="iconoLista"></div>
       <div id="list_icon_burger">
         <p class="boton_close">x</p>
         <div class="botonera_burger">
-          <button onclick="" id="button_Tt">Tt</button>
-          <button onclick="" id="button_head"><img src="./img/icon-head.png" alt="cabeza de una persona"></button>
+          <button id="button_Tt">Tt</button>
+          <button id="button_head"><img src="./img/icon-head.png" alt="cabeza de una persona"></button>
         </div>
         <div class="botonera_burger">
-          <button onclick="" id="button_PT">PT</button>
-          <button onclick="" id="button_ES">ES</button>
+          <button id="button_PT">PT</button>
+          <button id="button_ES">ES</button>
         </div>
       </div>
     </section>
     <section class="section_segunda">
       <p id="tituloIngreseTexto">Ingrese el texto aqui...</p>
       <textarea name="" id="areaTextoUsuario" maxlength="2000"></textarea>
-      <div class="msjValidacion">
-        <i class="fa-solid fa-circle-exclamation" id="iconoExclamacion"></i>
-        <p id="exclamacionAviso">Solo letras minusculas y sin acentos</p>
+      <div class="div_validaciones">
+        <div class="msjValidacion">
+          <i class="fa-solid fa-circle-exclamation" id="iconoExclamacion"></i>
+          <p id="exclamacionAviso">Solo letras minusculas y sin acentos</p>
+        </div>
       </div>
       <div class="div_botones">
         <button id="btnEncriptar" onclick="encriptar()">Encriptar</button>
