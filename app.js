@@ -3,6 +3,7 @@ const iconoLista = document.getElementById("iconoLista");
 const listIconBurger = document.getElementById("list_icon_burger");
 const textoUsuario = document.getElementById("areaTextoUsuario");
 const divValidaciones = document.querySelector(".div_validaciones");
+const divError = document.querySelector(".msjValidacion");
 const aside = document.querySelector("aside");
 const textoAside = document.getElementById("texto_aside");
 const areaMostrarMensaje = document.querySelector("span");
@@ -26,12 +27,29 @@ const buttonES = document.getElementById("button_ES");
 //Declaracion de variables
 let texto = "";
 let textoTraducido = "";
+const tildes = "áéíóúÁÉÍÓÚñÑ";
+const numeros = "0123456789";
+const mayusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const es = "es";
 const pt = "pt";
 let msjUsuario = "";
 let msjProcesado = "";
 let cont = 0;
 let contErrores = 0;
+let contCheck = false;
+let flagCheck = false;
+let arrayFlags = [contErrores, flagCheck, contCheck];
+
+//Creacion de elementos HTML
+
+//Mensaje de texto valido
+const div_Ok = document.createElement("div");
+const iCheck = document.createElement("i");
+const pOk = document.createElement("p");
+div_Ok.classList.add("okAlert");
+iCheck.classList.add("fa-sharp");
+iCheck.classList.add("fa-solid");
+iCheck.classList.add("fa-circle-check");
 
 //Declaracion de funciones
 function encriptar() {
@@ -180,6 +198,24 @@ function limpiarAvisoError() {
   exclamacionAviso.style.fontSize = "12px";
 }
 
+function textoUsuarioCheck() {
+  // const div_Ok = document.createElement("div");
+  // const iCheck = document.createElement("i");
+  // const pOk = document.createElement("p");
+
+  // div_Ok.classList.add("okAlert");
+  // iCheck.classList.add("fa-sharp");
+  // iCheck.classList.add("fa-solid");
+  // iCheck.classList.add("fa-circle-check");
+  pOk.textContent = "Texto valido";
+  div_Ok.appendChild(iCheck);
+  div_Ok.appendChild(pOk);
+  divValidaciones.appendChild(div_Ok);
+  divError.remove();
+  contCheck = true;
+  return contCheck;
+}
+
 async function traducirTexto(a, b) {
   texto = textoUsuario.value;
   const response = await fetch(
@@ -216,7 +252,7 @@ function printMsj(msj) {
   const i = document.createElement("i");
   const p = document.createElement("p");
 
-  div.classList.add("msjValidacion");
+  div.classList.add("errorAlert");
   i.classList.add("fa-solid");
   i.classList.add("fa-circle-exclamation");
   p.textContent = msj;
@@ -225,42 +261,63 @@ function printMsj(msj) {
   divValidaciones.appendChild(div);
 }
 
+function cleanMsj() {
+  let divErrorAlert = document.querySelectorAll(".errorAlert");
+  for (let x = 0; x < divErrorAlert.length; x++) {
+    divErrorAlert[x].remove();
+  }
+}
+
 function scanearErrores(texto) {
   let contA = 0;
   let contB = 0;
   let contC = 0;
   texto = textoUsuario.value;
-  let codigoLetra;
+  let letra;
   let msj;
-  for (let y = 0; y < texto.length; y++) {
-    codigoLetra = texto.charCodeAt(y);
-    if (codigoLetra >= 48 || codigoLetra <= 57) {
-      contA++;
-    }
-    if (codigoLetra >= 65 || codigoLetra <= 90) {
-      contB++;
-    }
-    if (codigoLetra >= 129 || codigoLetra <= 154) {
-      contC++;
-    }
-  }
   if (validarTextoUsuario(texto) === false) {
+    if (contCheck === true) {
+      divValidaciones.removeChild(div_Ok);
+      divValidaciones.appendChild(divError);
+    }
     errorTextoUsuario();
+    if (contErrores >= 1) {
+      cleanMsj();
+    }
+    for (let y = 0; y < texto.length; y++) {
+      letra = texto[y];
+      if (numeros.includes(letra)) {
+        contA++;
+      } else if (mayusculas.includes(letra)) {
+        contB++;
+      } else if (tildes.includes(letra)) {
+        contC++;
+      }
+    }
+    if (contA > 0) {
+      msj = "El texto posee numeros";
+      printMsj(msj);
+    }
+    if (contB > 0) {
+      msj = "El texto posee mayusculas";
+      printMsj(msj);
+    }
+    if (contC > 0) {
+      msj = "El texto posee tildes";
+      printMsj(msj);
+    }
+    contErrores++;
+    contCheck = false;
+  } else {
+    contErrores = 0;
+    flagCheck = true;
+    contCheck = true;
+    cleanMsj();
+    limpiarAvisoError();
+    textoUsuarioCheck();
   }
-  if (contA > 0) {
-    msj = "El texto posee numeros";
-    printMsj(msj);
-  }
-  if (contB > 0) {
-    msj = "El texto posee mayusculas";
-    printMsj(msj);
-  }
-  if (contC > 0) {
-    msj = "El texto posee tildes";
-    printMsj(msj);
-  }
-
-  return;
+  arrayFlags = [contErrores, flagCheck, contCheck];
+  return arrayFlags;
 }
 
 //Evento - Habilitar los botones cuando el textarea recibe el foco
