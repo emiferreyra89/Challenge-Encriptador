@@ -41,8 +41,7 @@ let flagCheck = false;
 let arrayFlags = [contErrores, flagCheck, contCheck];
 
 //Creacion de elementos HTML
-
-//Mensaje de texto valido
+// Mensaje de texto valido
 const div_Ok = document.createElement("div");
 const iCheck = document.createElement("i");
 const pOk = document.createElement("p");
@@ -79,6 +78,10 @@ function encriptar() {
       }
     }
     textoAside.style.order = "initial";
+    if (contCheck === true) {
+      cleanMsjValido();
+    }
+    cleanMsjError();
     limpiarAvisoError();
     mostrarMensaje(msjProcesado);
     btnDesencriptar.setAttribute("disabled", "true");
@@ -86,7 +89,11 @@ function encriptar() {
     mensajeVacio();
     limpiarAvisoError();
   } else {
+    if (contCheck === true) {
+      cleanMsjValido();
+    }
     errorTextoUsuario();
+    cleanMsjError();
     leyendaSinMsj.style.display = "none";
   }
   return;
@@ -126,6 +133,10 @@ function desencriptar() {
       contieneClaves = claves.some((clave) => msjProcesado.includes(clave));
     }
     textoAside.style.order = "initial";
+    if (contCheck === true) {
+      cleanMsjValido();
+    }
+    cleanMsjError();
     limpiarAvisoError();
     mostrarMensaje(msjProcesado);
     btnEncriptar.setAttribute("disabled", "true");
@@ -134,7 +145,11 @@ function desencriptar() {
     mensajeVacio();
     limpiarAvisoError();
   } else {
+    if (contCheck === true) {
+      cleanMsjValido();
+    }
     errorTextoUsuario();
+    cleanMsjError();
     leyendaSinMsj.style.display = "none";
   }
   return msjProcesado;
@@ -198,15 +213,7 @@ function limpiarAvisoError() {
   exclamacionAviso.style.fontSize = "12px";
 }
 
-function textoUsuarioCheck() {
-  // const div_Ok = document.createElement("div");
-  // const iCheck = document.createElement("i");
-  // const pOk = document.createElement("p");
-
-  // div_Ok.classList.add("okAlert");
-  // iCheck.classList.add("fa-sharp");
-  // iCheck.classList.add("fa-solid");
-  // iCheck.classList.add("fa-circle-check");
+function printMsjValido() {
   pOk.textContent = "Texto valido";
   div_Ok.appendChild(iCheck);
   div_Ok.appendChild(pOk);
@@ -214,6 +221,11 @@ function textoUsuarioCheck() {
   divError.remove();
   contCheck = true;
   return contCheck;
+}
+
+function cleanMsjValido() {
+  divValidaciones.removeChild(div_Ok);
+  divValidaciones.appendChild(divError);
 }
 
 async function traducirTexto(a, b) {
@@ -246,8 +258,7 @@ function ampliarFuente() {
   return cont;
 }
 
-function printMsj(msj) {
-  //Creacion de elementos HTML
+function printMsjError(msj) {
   const div = document.createElement("div");
   const i = document.createElement("i");
   const p = document.createElement("p");
@@ -261,7 +272,7 @@ function printMsj(msj) {
   divValidaciones.appendChild(div);
 }
 
-function cleanMsj() {
+function cleanMsjError() {
   let divErrorAlert = document.querySelectorAll(".errorAlert");
   for (let x = 0; x < divErrorAlert.length; x++) {
     divErrorAlert[x].remove();
@@ -277,12 +288,11 @@ function scanearErrores(texto) {
   let msj;
   if (validarTextoUsuario(texto) === false) {
     if (contCheck === true) {
-      divValidaciones.removeChild(div_Ok);
-      divValidaciones.appendChild(divError);
+      cleanMsjValido();
     }
     errorTextoUsuario();
     if (contErrores >= 1) {
-      cleanMsj();
+      cleanMsjError();
     }
     for (let y = 0; y < texto.length; y++) {
       letra = texto[y];
@@ -296,15 +306,15 @@ function scanearErrores(texto) {
     }
     if (contA > 0) {
       msj = "El texto posee numeros";
-      printMsj(msj);
+      printMsjError(msj);
     }
     if (contB > 0) {
       msj = "El texto posee mayusculas";
-      printMsj(msj);
+      printMsjError(msj);
     }
     if (contC > 0) {
       msj = "El texto posee tildes";
-      printMsj(msj);
+      printMsjError(msj);
     }
     contErrores++;
     contCheck = false;
@@ -312,9 +322,9 @@ function scanearErrores(texto) {
     contErrores = 0;
     flagCheck = true;
     contCheck = true;
-    cleanMsj();
+    cleanMsjError();
     limpiarAvisoError();
-    textoUsuarioCheck();
+    printMsjValido();
   }
   arrayFlags = [contErrores, flagCheck, contCheck];
   return arrayFlags;
@@ -336,17 +346,37 @@ botonClose.addEventListener("click", (event) => {
 });
 
 buttonPT.addEventListener("click", (event) => {
-  traducirTexto(es, pt);
+  event.preventDefault();
+  if (textoUsuario.value == "") {
+    alert("TEXTO VACIO..!!! Ingresa un texto por favor...");
+  } else {
+    traducirTexto(es, pt);
+  }
 });
 
 buttonES.addEventListener("click", (event) => {
-  traducirTexto(pt, es);
+  event.preventDefault();
+  if (textoUsuario.value == "") {
+    alert("TEXTO VACIO..!!! Ingresa un texto por favor...");
+  } else {
+    traducirTexto(pt, es);
+  }
 });
 
 buttonTt.addEventListener("click", (event) => {
-  ampliarFuente();
+  event.preventDefault();
+  if (textoUsuario.value == "") {
+    alert("TEXTO VACIO..!!! Ingresa un texto por favor...");
+  } else {
+    ampliarFuente();
+  }
 });
 
 buttonHead.addEventListener("click", (event) => {
-  scanearErrores(texto);
+  event.preventDefault();
+  if (textoUsuario.value == "") {
+    alert("TEXTO VACIO..!!! Ingresa un texto por favor...");
+  } else {
+    scanearErrores(texto);
+  }
 });
