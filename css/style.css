@@ -53,6 +53,26 @@
     align-items: center;
     gap: 8px;
   }
+  .errorAlert {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: red;
+  }
+  .errorAlert i {
+    font-size: 16px;
+  }
+  .okAlert {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: green;
+  }
+  .okAlert i {
+    font-size: 16px;
+  }
   #iconoExclamacion {
     font-size: 16px;
     color: #67808e;

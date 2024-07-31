@@ -1,22 +1,54 @@
 //Tags
+const iconoLista = document.getElementById("iconoLista");
+const listIconBurger = document.getElementById("list_icon_burger");
 const textoUsuario = document.getElementById("areaTextoUsuario");
+const divValidaciones = document.querySelector(".div_validaciones");
+const divError = document.querySelector(".msjValidacion");
 const aside = document.querySelector("aside");
-const textoAside = document.getElementById("texto_aside")
+const textoAside = document.getElementById("texto_aside");
 const areaMostrarMensaje = document.querySelector("span");
 const imgAside = document.getElementById("img_aside");
 const divLeyendas = document.getElementById("leyendas");
-const leyendaSinMsj = document.getElementById("leyendaSinMsj")
-const iconoExclamacion = document.getElementById("iconoExclamacion")
-const exclamacionAviso = document.getElementById("exclamacionAviso")
+const leyendaSinMsj = document.getElementById("leyendaSinMsj");
+const iconoExclamacion = document.getElementById("iconoExclamacion");
+const exclamacionAviso = document.getElementById("exclamacionAviso");
+const alertCopied = document.getElementById("alertCopied");
 
 //Tags botones
 const btnEncriptar = document.getElementById("btnEncriptar");
 const btnDesencriptar = document.getElementById("btnDesencriptar");
 const btnCopiar = document.getElementById("btnCopiar");
+const botonClose = document.querySelector(".boton_close");
+const buttonTt = document.getElementById("button_Tt");
+const buttonHead = document.getElementById("button_head");
+const buttonPT = document.getElementById("button_PT");
+const buttonES = document.getElementById("button_ES");
 
 //Declaracion de variables
+let texto = "";
+let textoTraducido = "";
+const tildes = "áéíóúÁÉÍÓÚñÑ";
+const numeros = "0123456789";
+const mayusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const es = "es";
+const pt = "pt";
 let msjUsuario = "";
 let msjProcesado = "";
+let cont = 0;
+let contErrores = 0;
+let contCheck = false;
+let flagCheck = false;
+let arrayFlags = [contErrores, flagCheck, contCheck];
+
+//Creacion de elementos HTML
+// Mensaje de texto valido
+const div_Ok = document.createElement("div");
+const iCheck = document.createElement("i");
+const pOk = document.createElement("p");
+div_Ok.classList.add("okAlert");
+iCheck.classList.add("fa-sharp");
+iCheck.classList.add("fa-solid");
+iCheck.classList.add("fa-circle-check");
 
 //Declaracion de funciones
 function encriptar() {
@@ -45,18 +77,26 @@ function encriptar() {
           break;
       }
     }
-    textoAside.style.order = "initial"
-    limpiarAvisoError()
+    textoAside.style.order = "initial";
+    if (contCheck === true) {
+      cleanMsjValido();
+    }
+    cleanMsjError();
+    limpiarAvisoError();
     mostrarMensaje(msjProcesado);
     btnDesencriptar.setAttribute("disabled", "true");
   } else if (msjUsuario == "") {
     mensajeVacio();
-    limpiarAvisoError()
+    limpiarAvisoError();
   } else {
-    errorTextoUsuario()
-    leyendaSinMsj.style.display = "none"
+    if (contCheck === true) {
+      cleanMsjValido();
+    }
+    errorTextoUsuario();
+    cleanMsjError();
+    leyendaSinMsj.style.display = "none";
   }
-  return
+  return;
 }
 
 function desencriptar() {
@@ -92,19 +132,27 @@ function desencriptar() {
       }
       contieneClaves = claves.some((clave) => msjProcesado.includes(clave));
     }
-    textoAside.style.order = "initial"
-    limpiarAvisoError()
+    textoAside.style.order = "initial";
+    if (contCheck === true) {
+      cleanMsjValido();
+    }
+    cleanMsjError();
+    limpiarAvisoError();
     mostrarMensaje(msjProcesado);
     btnEncriptar.setAttribute("disabled", "true");
     return msjProcesado;
   } else if (msjUsuario == "") {
     mensajeVacio();
-    limpiarAvisoError()
+    limpiarAvisoError();
   } else {
-    errorTextoUsuario()
-    leyendaSinMsj.style.display = "none"
+    if (contCheck === true) {
+      cleanMsjValido();
+    }
+    errorTextoUsuario();
+    cleanMsjError();
+    leyendaSinMsj.style.display = "none";
   }
-  return msjProcesado
+  return msjProcesado;
 }
 
 function mostrarMensaje(mensaje) {
@@ -119,7 +167,12 @@ function mostrarMensaje(mensaje) {
 async function copiarTexto() {
   try {
     await navigator.clipboard.writeText(msjProcesado);
-    alert("Texto copiado");
+    alertCopied.style.display = "block";
+    alertCopied.classList.add("show");
+    setTimeout(() => {
+      alertCopied.classList.remove("show");
+      alertCopied.style.display = "none";
+    }, 2000);
   } catch (error) {
     alert(`Error al copiar el texto (${error})`);
   }
@@ -132,36 +185,198 @@ function mensajeVacio() {
   imgAside.style.display = "block";
   imgAside.style.margin = "0px auto";
   divLeyendas.style.display = "block";
-  leyendaSinMsj.style.display = "block"
-  textoAside.style.order = "1"
+  leyendaSinMsj.style.display = "block";
+  textoAside.style.order = "1";
 }
 
 function validarTextoUsuario(texto) {
   let textoValido = true;
   for (let y = 0; y < texto.length; y++) {
-    let codigoLetra = texto.charCodeAt(y)
+    let codigoLetra = texto.charCodeAt(y);
     if ((codigoLetra < 97 || codigoLetra > 122) && codigoLetra != 32) {
       textoValido = false;
       y = texto.length;
     }
   }
-  return textoValido
+  return textoValido;
 }
 
 function errorTextoUsuario() {
-  iconoExclamacion.style.color = 'red'
-  exclamacionAviso.style.color = 'red'
-  exclamacionAviso.style.fontSize = '14px'
+  iconoExclamacion.style.color = "red";
+  exclamacionAviso.style.color = "red";
+  exclamacionAviso.style.fontSize = "14px";
 }
 
 function limpiarAvisoError() {
-  iconoExclamacion.style.color = '#495057'
-  exclamacionAviso.style.color = '#495057'
-  exclamacionAviso.style.fontSize = '12px'
+  iconoExclamacion.style.color = "#495057";
+  exclamacionAviso.style.color = "#495057";
+  exclamacionAviso.style.fontSize = "12px";
+}
+
+function printMsjValido() {
+  pOk.textContent = "Texto valido";
+  div_Ok.appendChild(iCheck);
+  div_Ok.appendChild(pOk);
+  divValidaciones.appendChild(div_Ok);
+  divError.remove();
+  contCheck = true;
+  return contCheck;
+}
+
+function cleanMsjValido() {
+  divValidaciones.removeChild(div_Ok);
+  divValidaciones.appendChild(divError);
+}
+
+async function traducirTexto(a, b) {
+  texto = textoUsuario.value;
+  const response = await fetch(
+    `https://api.mymemory.translated.net/get?q=${encodeURIComponent(
+      texto
+    )}&langpair=${a}|${b}`
+  );
+  const data = await response.json();
+  textoTraducido = data.matches[0].translation.toLowerCase();
+  textoUsuario.value = textoTraducido;
+  return textoTraducido;
+}
+
+function ampliarFuente() {
+  if (cont == 0) {
+    textoUsuario.style.fontSize = "28px";
+    areaMostrarMensaje.style.fontSize = "28px";
+    cont = 1;
+  } else if (cont == 1) {
+    textoUsuario.style.fontSize = "38px";
+    areaMostrarMensaje.style.fontSize = "38px";
+    cont = 2;
+  } else {
+    textoUsuario.style.fontSize = "18px";
+    areaMostrarMensaje.style.fontSize = "18px";
+    cont = 0;
+  }
+  return cont;
+}
+
+function printMsjError(msj) {
+  const div = document.createElement("div");
+  const i = document.createElement("i");
+  const p = document.createElement("p");
+
+  div.classList.add("errorAlert");
+  i.classList.add("fa-solid");
+  i.classList.add("fa-circle-exclamation");
+  p.textContent = msj;
+  div.appendChild(i);
+  div.appendChild(p);
+  divValidaciones.appendChild(div);
+}
+
+function cleanMsjError() {
+  let divErrorAlert = document.querySelectorAll(".errorAlert");
+  for (let x = 0; x < divErrorAlert.length; x++) {
+    divErrorAlert[x].remove();
+  }
+}
+
+function scanearErrores(texto) {
+  let contA = 0;
+  let contB = 0;
+  let contC = 0;
+  texto = textoUsuario.value;
+  let letra;
+  let msj;
+  if (validarTextoUsuario(texto) === false) {
+    if (contCheck === true) {
+      cleanMsjValido();
+    }
+    errorTextoUsuario();
+    if (contErrores >= 1) {
+      cleanMsjError();
+    }
+    for (let y = 0; y < texto.length; y++) {
+      letra = texto[y];
+      if (numeros.includes(letra)) {
+        contA++;
+      } else if (mayusculas.includes(letra)) {
+        contB++;
+      } else if (tildes.includes(letra)) {
+        contC++;
+      }
+    }
+    if (contA > 0) {
+      msj = "El texto posee numeros";
+      printMsjError(msj);
+    }
+    if (contB > 0) {
+      msj = "El texto posee mayusculas";
+      printMsjError(msj);
+    }
+    if (contC > 0) {
+      msj = "El texto posee tildes";
+      printMsjError(msj);
+    }
+    contErrores++;
+    contCheck = false;
+  } else {
+    contErrores = 0;
+    flagCheck = true;
+    contCheck = true;
+    cleanMsjError();
+    limpiarAvisoError();
+    printMsjValido();
+  }
+  arrayFlags = [contErrores, flagCheck, contCheck];
+  return arrayFlags;
 }
 
 //Evento - Habilitar los botones cuando el textarea recibe el foco
 textoUsuario.addEventListener("focus", () => {
   btnEncriptar.removeAttribute("disabled");
   btnDesencriptar.removeAttribute("disabled");
+});
+
+//Eventos del burger-buttom
+iconoLista.addEventListener("click", (event) => {
+  listIconBurger.style.display = "block";
+});
+
+botonClose.addEventListener("click", (event) => {
+  listIconBurger.style.display = "none";
+});
+
+buttonPT.addEventListener("click", (event) => {
+  event.preventDefault();
+  if (textoUsuario.value == "") {
+    alert("TEXTO VACIO..!!! Ingresa un texto por favor...");
+  } else {
+    traducirTexto(es, pt);
+  }
+});
+
+buttonES.addEventListener("click", (event) => {
+  event.preventDefault();
+  if (textoUsuario.value == "") {
+    alert("TEXTO VACIO..!!! Ingresa un texto por favor...");
+  } else {
+    traducirTexto(pt, es);
+  }
+});
+
+buttonTt.addEventListener("click", (event) => {
+  event.preventDefault();
+  if (textoUsuario.value == "") {
+    alert("TEXTO VACIO..!!! Ingresa un texto por favor...");
+  } else {
+    ampliarFuente();
+  }
+});
+
+buttonHead.addEventListener("click", (event) => {
+  event.preventDefault();
+  if (textoUsuario.value == "") {
+    alert("TEXTO VACIO..!!! Ingresa un texto por favor...");
+  } else {
+    scanearErrores(texto);
+  }
 });
