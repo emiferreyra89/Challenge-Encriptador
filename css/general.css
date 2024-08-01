@@ -74,7 +74,9 @@ button:hover:not([disabled]) {
   text-align: center;
   font-size: 18px;
 }
-
+#icon_buttonHead{
+  font-size: 20px;
+}
 span {
   font-size: 18px;
   display: none;

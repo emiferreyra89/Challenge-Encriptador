@@ -338,11 +338,15 @@ textoUsuario.addEventListener("focus", () => {
 
 //Eventos del burger-buttom
 iconoLista.addEventListener("click", (event) => {
-  listIconBurger.style.display = "block";
+  event.preventDefault()
+  listIconBurger.style.display = "inline-flex";
+  listIconBurger.classList.add('box_list')
 });
 
 botonClose.addEventListener("click", (event) => {
+  event.preventDefault()
   listIconBurger.style.display = "none";
+  iconoLista.style.display = "inline-flex"
 });
 
 buttonPT.addEventListener("click", (event) => {
