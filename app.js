@@ -1,6 +1,10 @@
 //Tags
 const iconoLista = document.getElementById("iconoLista");
 const listIconBurger = document.getElementById("list_icon_burger");
+const p_Tt = document.getElementById("p_Tt");
+const p_head = document.getElementById("p_head");
+const p_PT = document.getElementById("p_PT");
+const p_ES = document.getElementById("p_ES");
 const textoUsuario = document.getElementById("areaTextoUsuario");
 const divValidaciones = document.querySelector(".div_validaciones");
 const divError = document.querySelector(".msjValidacion");
@@ -211,6 +215,8 @@ function limpiarAvisoError() {
   iconoExclamacion.style.color = "#495057";
   exclamacionAviso.style.color = "#495057";
   exclamacionAviso.style.fontSize = "12px";
+  contCheck = false;
+  return contCheck;
 }
 
 function printMsjValido() {
@@ -284,6 +290,7 @@ function scanearErrores(texto) {
   let contB = 0;
   let contC = 0;
   texto = textoUsuario.value;
+
   let letra;
   let msj;
   if (validarTextoUsuario(texto) === false) {
@@ -337,16 +344,28 @@ textoUsuario.addEventListener("focus", () => {
 });
 
 //Eventos del burger-buttom
+
+//Desplegar y cerrar botonera de funcionalidades
 iconoLista.addEventListener("click", (event) => {
-  event.preventDefault()
+  event.preventDefault();
   listIconBurger.style.display = "inline-flex";
-  listIconBurger.classList.add('box_list')
+  listIconBurger.classList.add("box_list");
+  iconoLista.style.display = "none";
 });
 
 botonClose.addEventListener("click", (event) => {
-  event.preventDefault()
+  event.preventDefault();
   listIconBurger.style.display = "none";
-  iconoLista.style.display = "inline-flex"
+  iconoLista.style.display = "inline-flex";
+});
+
+//Eventos para el boton de traduccion al Portugues
+buttonPT.addEventListener("mouseover", (event) => {
+  p_PT.style.display = "block";
+});
+
+buttonPT.addEventListener("mouseout", (event) => {
+  p_PT.style.display = "none";
 });
 
 buttonPT.addEventListener("click", (event) => {
@@ -358,6 +377,15 @@ buttonPT.addEventListener("click", (event) => {
   }
 });
 
+//Eventos para el boton de traduccion al Espanol
+buttonES.addEventListener("mouseover", (event) => {
+  p_ES.style.display = "block";
+});
+
+buttonES.addEventListener("mouseout", (event) => {
+  p_ES.style.display = "none";
+});
+
 buttonES.addEventListener("click", (event) => {
   event.preventDefault();
   if (textoUsuario.value == "") {
@@ -367,6 +395,15 @@ buttonES.addEventListener("click", (event) => {
   }
 });
 
+//Eventos para el boton de Ampliar fuente
+buttonTt.addEventListener("mouseover", (event) => {
+  p_Tt.style.display = "block";
+});
+
+buttonTt.addEventListener("mouseout", (event) => {
+  p_Tt.style.display = "none";
+});
+
 buttonTt.addEventListener("click", (event) => {
   event.preventDefault();
   if (textoUsuario.value == "") {
@@ -374,6 +411,15 @@ buttonTt.addEventListener("click", (event) => {
   } else {
     ampliarFuente();
   }
+});
+
+//Eventos para el boton de Scanear Errores
+buttonHead.addEventListener("mouseover", (event) => {
+  p_head.style.display = "block";
+});
+
+buttonHead.addEventListener("mouseout", (event) => {
+  p_head.style.display = "none";
 });
 
 buttonHead.addEventListener("click", (event) => {
