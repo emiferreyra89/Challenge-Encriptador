@@ -10,7 +10,7 @@ const divValidaciones = document.querySelector(".div_validaciones");
 const divError = document.querySelector(".msjValidacion");
 const aside = document.querySelector("aside");
 const textoAside = document.getElementById("texto_aside");
-const areaMostrarMensaje = document.querySelector("span");
+const areaTextoFinal = document.getElementById("areaTextoFinal");
 const imgAside = document.getElementById("img_aside");
 const divLeyendas = document.getElementById("leyendas");
 const leyendaSinMsj = document.getElementById("leyendaSinMsj");
@@ -43,6 +43,15 @@ let contErrores = 0;
 let contCheck = false;
 let flagCheck = false;
 let arrayFlags = [contErrores, flagCheck, contCheck];
+
+//Configuración de Toastr
+toastr.options = {
+  "newestOnTop": true,
+  "progressBar": true,
+  "positionClass": "toast-top-center",
+  "showDuration": "300",
+   "timeOut": "2000"
+};
 
 //Creacion de elementos HTML
 // Mensaje de texto valido
@@ -161,8 +170,9 @@ function desencriptar() {
 
 function mostrarMensaje(mensaje) {
   aside.style.justifyContent = "space-between";
-  areaMostrarMensaje.style.display = "block";
-  areaMostrarMensaje.innerHTML = mensaje;
+  textoAside.style.height = "100%"
+  areaTextoFinal.style.display = "block";
+  areaTextoFinal.value = mensaje;
   btnCopiar.style.display = "block";
   imgAside.style.display = "none";
   divLeyendas.style.display = "none";
@@ -184,7 +194,7 @@ async function copiarTexto() {
 
 function mensajeVacio() {
   aside.style.justifyContent = "center";
-  areaMostrarMensaje.style.display = "none";
+  areaTextoFinal.style.display = "none";
   btnCopiar.style.display = "none";
   imgAside.style.display = "block";
   imgAside.style.margin = "0px auto";
@@ -242,23 +252,28 @@ async function traducirTexto(a, b) {
     )}&langpair=${a}|${b}`
   );
   const data = await response.json();
-  textoTraducido = data.matches[0].translation.toLowerCase();
-  textoUsuario.value = textoTraducido;
+  if (data.matches.length>0) {
+    textoTraducido = data.matches[0].translation.toLowerCase();
+    textoUsuario.value = textoTraducido;
+  } else {
+    textoTraducido = data.responseDetails;
+    toastr.error("HAS EXCEDIDO EL LIMITE. CONSULTA MÁXIMA PERMITIDA: 500 CARACTERES")
+  }
   return textoTraducido;
 }
 
 function ampliarFuente() {
   if (cont == 0) {
     textoUsuario.style.fontSize = "28px";
-    areaMostrarMensaje.style.fontSize = "28px";
+    areaTextoFinal.style.fontSize = "28px";
     cont = 1;
   } else if (cont == 1) {
     textoUsuario.style.fontSize = "38px";
-    areaMostrarMensaje.style.fontSize = "38px";
+    areaTextoFinal.style.fontSize = "38px";
     cont = 2;
   } else {
     textoUsuario.style.fontSize = "18px";
-    areaMostrarMensaje.style.fontSize = "18px";
+    areaTextoFinal.style.fontSize = "18px";
     cont = 0;
   }
   return cont;
@@ -371,7 +386,7 @@ buttonPT.addEventListener("mouseout", (event) => {
 buttonPT.addEventListener("click", (event) => {
   event.preventDefault();
   if (textoUsuario.value == "") {
-    alert("TEXTO VACIO..!!! Ingresa un texto por favor...");
+    toastr.error("Ingresa un texto por favor...","TEXTO VACIO..!!!");
   } else {
     traducirTexto(es, pt);
   }
@@ -389,7 +404,7 @@ buttonES.addEventListener("mouseout", (event) => {
 buttonES.addEventListener("click", (event) => {
   event.preventDefault();
   if (textoUsuario.value == "") {
-    alert("TEXTO VACIO..!!! Ingresa un texto por favor...");
+    toastr.error("Ingresa un texto por favor...","TEXTO VACIO..!!!");
   } else {
     traducirTexto(pt, es);
   }
@@ -407,7 +422,7 @@ buttonTt.addEventListener("mouseout", (event) => {
 buttonTt.addEventListener("click", (event) => {
   event.preventDefault();
   if (textoUsuario.value == "") {
-    alert("TEXTO VACIO..!!! Ingresa un texto por favor...");
+    toastr.error("Ingresa un texto por favor...","TEXTO VACIO..!!!");
   } else {
     ampliarFuente();
   }
@@ -425,8 +440,9 @@ buttonHead.addEventListener("mouseout", (event) => {
 buttonHead.addEventListener("click", (event) => {
   event.preventDefault();
   if (textoUsuario.value == "") {
-    alert("TEXTO VACIO..!!! Ingresa un texto por favor...");
+    toastr.error("Ingresa un texto por favor...","TEXTO VACIO..!!!");
   } else {
     scanearErrores(texto);
   }
 });
+
