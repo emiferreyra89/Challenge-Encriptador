@@ -11,13 +11,16 @@
 }
 body {
   background-color: #e5e5e5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 main {
   width: 100%;
   margin: auto;
   padding: 0% 5%;
 }
-a {
+a { 
   text-decoration: none;
   color: #000;
 }
@@ -25,7 +28,7 @@ a:hover {
   color: white;
   text-decoration: dotted;
 }
-textarea {  
+#areaTextoUsuario {
   padding: 15px;
   width: 100%;
   max-width: 100%;
@@ -36,15 +39,28 @@ textarea {
   border: none;
   outline: none;
   transition: border-color 1s, box-shadow 0.5s, background-color 0.5s;
-  overflow-y: hidden;
+  overflow-y: auto;
   resize: none;
 }
-textarea:focus {
-  /* border: 1px solid;
-  border-color: #0a3871; */
+#areaTextoFinal {
+  padding: 15px;
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+  background-color: #ffffff;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  overflow-y:auto;
+  resize: none;
+  display: none;
+}
+#areaTextoUsuario:focus {
   background-color: #ffffff;
   box-shadow: 5px 5px rgba(10, 56, 113, 0.2);
 }
+
+/* Estilos de Botones */
 button {
   border-radius: 24px;
   width: 100%;
@@ -61,6 +77,22 @@ button:hover:not([disabled]) {
   font-size: 18px;
   transition: 0.5s;
 }
+#button_Tt,
+#button_head,
+#button_PT,
+#button_ES {
+  border: none;
+  border-radius: 50%;
+  padding: 5px;
+  width: 40px;
+  height: 40px;
+  line-height: 50%;
+  text-align: center;
+  font-size: 18px;
+}
+#icon_buttonHead{
+  font-size: 20px;
+}
 span {
   font-size: 18px;
   display: none;
@@ -70,9 +102,11 @@ aside {
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 10px;
   border-radius: 30px;
   box-shadow: 5px 10px 10px rgba(128, 128, 128, 0.3);
+  position: relative;
 }
 section {
   margin: 5% auto;
@@ -108,7 +142,7 @@ footer i {
   aside {
     padding: 25px 60px;
   }
-  textarea {
+  #areaTextoUsuario {
     height: 500px;
   }
   footer {
