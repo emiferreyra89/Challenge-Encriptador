@@ -9,6 +9,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <!-- Incluye jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- Incluye Toastr CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+  <!-- Incluye Toastr JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   <link rel="stylesheet" href="./css/general.css">
 </head>
 
@@ -45,7 +51,7 @@
     </section>
     <section class="section_segunda">
       <p id="tituloIngreseTexto">Ingrese el texto aqui...</p>
-      <textarea name="" id="areaTextoUsuario" maxlength="2000"></textarea>
+      <textarea name="" id="areaTextoUsuario" maxlength="500"></textarea>
       <div class="div_validaciones">
         <div class="msjValidacion">
           <i class="fa-solid fa-circle-exclamation" id="iconoExclamacion"></i>
@@ -59,9 +65,7 @@
     </section>
     <aside>
       <div id="texto_aside">
-        <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, aliquid! Dolorum debitis quasi
-          pariatur omnis dolore dignissimos reprehenderit, nobis aut quisquam hic. Laborum cum corporis veritatis
-          itaque, similique enim et!</span>
+        <textarea name="" id="areaTextoFinal" maxlength="2000" readonly></textarea>
       </div>
       <div class="div_img_aside" id="img_aside">
         <img src="./img/img-personaBuscando.png" alt="persona buscando con una lupa" id="img-personaBuscando">

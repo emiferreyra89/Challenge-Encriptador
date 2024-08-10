@@ -15,6 +15,9 @@
     height: auto;
     cursor: pointer;
   }
+  #list_icon_burger {
+    display: none;
+  }
   .box_list {
     margin: 10px auto;
     padding: 5px 0px;
@@ -229,4 +232,10 @@
   100% {
     opacity: 0%;
   }
+}
+
+.toast-error {
+  background-color: red ; 
+  color: #FFFFFF; 
+  text-align: center
 }
